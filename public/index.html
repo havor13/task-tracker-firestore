@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Task Tracker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Task Tracker</h1>
+
+  <!-- Task Form -->
+  <form id="taskForm">
+    <input type="text" id="title" placeholder="Task Title" required>
+    <input type="text" id="description" placeholder="Task Description" required>
+    <button type="submit">Add Task</button>
+  </form>
+
+  <!-- Search Bar -->
+  <div id="searchSection">
+    <input type="text" id="search" placeholder="Search by title">
+    <button id="searchBtn">Search</button>
+  </div>
+
+  <!-- Task List -->
+  <ul id="taskList"></ul>
+
+  <!-- Script -->
+  <script type="module" src="../main.js"></script>
+</body>
+</html>

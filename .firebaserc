@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "task-tracker-firestore",
+    "defult": "ldssinglesforum"
+  },
+  "targets": {},
+  "etags": {}
+}
