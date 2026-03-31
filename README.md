@@ -30,3 +30,16 @@ The app allows users to:
 ---
 
 ## 📂 Directory Structure
+task-tracker-firestore/
+├── public/
+├── src/
+│   ├── components/
+│   │   ├── TaskForm.js
+│   │   ├── TaskList.js
+│   │   └── SearchBar.js
+│   ├── App.js
+│   ├── index.js
+│   └── styles.css
+├── firebase.json
+├── package.json
+└── README.md
