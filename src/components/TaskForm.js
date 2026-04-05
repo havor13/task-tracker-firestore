@@ -1,49 +1,41 @@
 import React, { useState } from "react";
-import "../styles.css"; 
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "../firebase"; // make sure this points to your Firebase config
 
-function TaskForm({ onSubmit, editTask }) {
-  const [title, setTitle] = useState(editTask ? editTask.title : "");
-  const [description, setDescription] = useState(editTask ? editTask.description : "");
+function AddTask() {
+  const [title, setTitle] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onSubmit({ title, description });
-    setTitle("");
-    setDescription("");
+    if (!title.trim()) return;
+
+    try {
+      await addDoc(collection(db, "tasks"), {
+        title: title,
+        completed: false,
+        createdAt: new Date()
+      });
+      setTitle(""); // clear input after adding
+      console.log("Task added successfully!");
+    } catch (error) {
+      console.error("Error adding task: ", error);
+    }
   };
 
   return (
-    <form className="task-form" onSubmit={handleSubmit}>
-      <h2 className="form-title">{editTask ? "Edit Task" : "Add New Task"}</h2>
-      
-      <div className="form-group">
-        <label htmlFor="title">Title</label>
+    <div>
+      <h2>Add Task</h2>
+      <form onSubmit={handleSubmit}>
         <input
-          id="title"
           type="text"
-          placeholder="Enter task title..."
+          placeholder="Enter task title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          required
         />
-      </div>
-
-      <div className="form-group">
-        <label htmlFor="description">Description</label>
-        <textarea
-          id="description"
-          placeholder="Enter task description..."
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          required
-        />
-      </div>
-
-      <button type="submit" className="submit-btn">
-        {editTask ? "Update Task" : "Add Task"}
-      </button>
-    </form>
+        <button type="submit">Add Task</button>
+      </form>
+    </div>
   );
 }
 
-export default TaskForm;
+export default AddTask;

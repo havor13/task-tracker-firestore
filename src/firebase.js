@@ -1,21 +1,17 @@
-// Import Firebase core and Realtime Database
 import { initializeApp } from "firebase/app";
-import { getDatabase } from "firebase/database";
+import { getFirestore } from "firebase/firestore";
+import { getAnalytics } from "firebase/analytics";
 
-// Your Firebase project configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCiQWYOCU4J_MWiig65PE9dbrscvayPslI",
-  authDomain: "task-tracker-firestore.firebaseapp.com",
-  databaseURL: "https://task-tracker-firestore-default-rtdb.firebaseio.com", // Realtime Database URL
-  projectId: "task-tracker-firestore",
-  storageBucket: "task-tracker-firestore.appspot.com",
-  messagingSenderId: "687510985404",
-  appId: "1:687510985404:web:a9a9d9eb13fc23e309ceb9",
-  measurementId: "G-VFTF2Z2K2V"
+  apiKey: "AIzaSyCMrZIqU6rbXS2vZ68HXHRWLPsT5J2vGiI",
+  authDomain: "task-tracker-firestore-59ad3.firebaseapp.com",
+  projectId: "task-tracker-firestore-59ad3",
+  storageBucket: "task-tracker-firestore-59ad3.firebasestorage.app",
+  messagingSenderId: "1068278671364",
+  appId: "1:1068278671364:web:e5af3fe00d6524d1706d51",
+  measurementId: "G-N0R9VB77BK"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-
-// Export Realtime Database instance
-export const db = getDatabase(app);
+export const db = getFirestore(app);
+export const analytics = getAnalytics(app);

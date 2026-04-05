@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "task-tracker-firestore-59ad3-2e708",
     "public": "build",
     "ignore": [
       "firebase.json",
