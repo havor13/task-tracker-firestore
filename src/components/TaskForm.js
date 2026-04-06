@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { collection, addDoc } from "firebase/firestore";
-import { db } from "../firebase"; // make sure this points to your Firebase config
+import { db, auth } from "../firebase";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
-function AddTask() {
+function TaskForm() {
   const [title, setTitle] = useState("");
 
   const handleSubmit = async (e) => {
@@ -11,31 +11,28 @@ function AddTask() {
 
     try {
       await addDoc(collection(db, "tasks"), {
-        title: title,
-        completed: false,
-        createdAt: new Date()
+        title,
+        createdAt: serverTimestamp(),
+        userId: auth.currentUser ? auth.currentUser.uid : null,
       });
-      setTitle(""); // clear input after adding
-      console.log("Task added successfully!");
-    } catch (error) {
-      console.error("Error adding task: ", error);
+      setTitle(""); // clear input
+    } catch (err) {
+      console.error("Error adding task:", err);
+      alert("Failed to add task. Check console for details.");
     }
   };
 
   return (
-    <div>
-      <h2>Add Task</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Enter task title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <button type="submit">Add Task</button>
-      </form>
-    </div>
+    <form onSubmit={handleSubmit} style={{ marginBottom: "20px" }}>
+      <input
+        type="text"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        placeholder="Enter task"
+      />
+      <button type="submit">Add Task</button>
+    </form>
   );
 }
 
-export default AddTask;
+export default TaskForm;

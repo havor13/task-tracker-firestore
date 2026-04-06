@@ -1,72 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Task Tracker</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <h1>Task Tracker</h1>
-
-  <!-- Form to add new tasks -->
-  <form id="task-form">
-    <input type="text" id="task-input" placeholder="Enter a new task" required>
-    <button type="submit">Add Task</button>
-  </form>
-
-  <!-- Task list -->
-  <ul id="task-list"></ul>
-
-  <!-- Firebase SDKs -->
-  <script type="module">
-    // Import Firebase
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getFirestore, collection, addDoc, getDocs } 
-      from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-    // Your Firebase config (replace with your project’s config)
-    const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
-      authDomain: "task-tracker-firestore.firebaseapp.com",
-      projectId: "task-tracker-firestore",
-      storageBucket: "task-tracker-firestore.appspot.com",
-      messagingSenderId: "YOUR_SENDER_ID",
-      appId: "YOUR_APP_ID"
-    };
-
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    const taskForm = document.getElementById("task-form");
-    const taskInput = document.getElementById("task-input");
-    const taskList = document.getElementById("task-list");
-
-    // Add new task
-    taskForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const taskText = taskInput.value.trim();
-      if (taskText) {
-        await addDoc(collection(db, "tasks"), { text: taskText });
-        taskInput.value = "";
-        loadTasks();
-      }
-    });
-
-    // Load tasks
-    async function loadTasks() {
-      taskList.innerHTML = "";
-      const querySnapshot = await getDocs(collection(db, "tasks"));
-      querySnapshot.forEach((doc) => {
-        const li = document.createElement("li");
-        li.textContent = doc.data().text;
-        taskList.appendChild(li);
-      });
-    }
-
-    // Initial load
-    loadTasks();
-  </script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Tracker</title>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
 </html>
